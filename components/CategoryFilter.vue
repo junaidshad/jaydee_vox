@@ -3,7 +3,7 @@
     <div class="appContainer">
       <div class="d-flex align-center smallHide">
         <div v-for="(category, index) in categories" :key="index">
-          <button class="category-btn d-block font-semi-bold" :class="{ active : category.isActive}">{{category.name}}</button>
+          <button class="category-btn d-block font-semi-bold" :class="{ active : category.isActive}" @click="handleCategoryClick(category.name)">{{category.name}}</button>
         </div>
       </div>
       <div class="medium-up-hide categorySelect">
@@ -21,15 +21,17 @@
 <script>
 export default {
   name: "CategoryFilter",
-  data() {
-    return {
-      categories: [
-        {name: 'All', value: 'all', isActive: false },
-        {name: 'Jewelery', value: 'jewelery', isActive: false },
-        {name: 'Electronics', value: 'electronics', isActive: false },
-        {name: 'Men\'s Clothing', value: 'mens_clothing', isActive: true },
-        {name: 'Women\'s Clothing', value: 'womens_clothing', isActive: false },
-      ]
+  props: {
+    categories: {
+      type: Array,
+      default: () => []
+    }
+  },
+  methods: {
+    handleCategoryClick(categoryName) {
+      this.categories.forEach((category) => {
+        category.isActive = category.name === categoryName
+      })
     }
   }
 }
@@ -48,6 +50,7 @@ export default {
   color: rgba(26, 26, 26, 0.5);
   font-size: 14px;
   margin-right: 18px;
+  text-transform: capitalize;
 }
 .category-btn.active{
   color: #1A1A1A;

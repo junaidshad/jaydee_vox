@@ -2,7 +2,7 @@
   <div class="header-navigation">
     <div class="appContainer d-flex justify-space-between align-center">
       <div class="logo">Voxel <span>Store</span></div>
-      <img @click="handleClickCart()" src="~assets/VoxelStoreAssets/bag.svg" alt="cart-bag" width="18" height="21"/>
+      <img src="~assets/VoxelStoreAssets/bag.svg" alt="cart-bag" width="18" height="21" @click="handleClickCart()"/>
     </div>
   </div>
 </template>
@@ -35,5 +35,10 @@ export default {
 .header-navigation .appContainer {
   height: 100%;
 }
-
+img {
+  cursor: pointer;
+}
+.logo {
+  cursor: pointer;
+}
 </style>

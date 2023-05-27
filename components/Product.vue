@@ -1,89 +1,52 @@
 <template>
-  <div class="appContainer d-flex flex-wrap grid-view">
     <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
       <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
+        <img class="productImg" :src="product.image" alt="product-image">
+        <div class="font-semi-bold product-title">{{ product.title }}</div>
+        <div class="font-semi-bold product-price">{{ product.price }}</div>
       </div>
+      <button class="align-center btn-add-cart d-flex font-semi-bold justify-center" @click="handleAddToCart()"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
     </div>
-    <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
-      <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
-      <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
-      <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
-      <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
-      <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product-card">
-      <img class="productImg" src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI" alt="product-image">
-      <div class="product-content">
-        <div class="font-semi-bold product-title">Raven - Foldsack No. 1 Backpack, Fits 15 Laptops</div>
-        <div class="font-semi-bold product-price">$109.95</div>
-        <button class="align-center btn-add-cart d-flex font-semi-bold justify-center"><img src="~assets/VoxelStoreAssets/add.svg" alt="button-add">Add to Cart</button>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
-
-export default defineComponent({
+export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "Product"
-})
+  name: "Product",
+  props: {
+    product: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  methods: {
+    handleAddToCart() {
+      const currentLSItems = JSON.parse(localStorage.getItem('cartItems')) || []
+      const newItems = [...currentLSItems, this.product.id]
+      localStorage.setItem('cartItems', JSON.stringify(newItems))
+      this.$emit('open-cart')
+    }
+  }
+}
 </script>
 
 <style scoped>
-.grid-view{
-  margin-top: 24px;
-  gap: 12px;
-}
 .product-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 24px;
   border: 1px solid rgba(26, 26, 26, 0.1);
   border-radius: 12px;
   width: 24%;
 }
-.product-card .productImg{
+.product-content .productImg{
   max-width: 290px;
-  margin: 0 auto;
   display: block;
   width: 100%;
+  height: 280px;
+  object-fit: contain;
+  margin-bottom: 32px;
 }
 .product-content{margin-top: 28px;}
 .product-title {line-height: 20px;}

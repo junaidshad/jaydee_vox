@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex flex-wrap singleLineItem">
     <div class="lineItemImg">
-      <img src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI"
+      <img :src="image"
            alt="product-image">
     </div>
     <div class="d-flex flex-column lineItemDetail">
-      <h4 class="font-semi-bold">Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h4>
+      <h4 class="font-semi-bold">{{ title }}</h4>
       <div class="d-flex justify-space-between priceWithRemove">
-        <p>$219.90</p>
-        <button class="removeBtn">Remove</button>
+        <p>${{ price }}</p>
+        <button class="removeBtn" @click="handleItemRemove()">Remove</button>
       </div>
     </div>
   </div>
@@ -17,6 +17,40 @@
 <script>
 export default {
   name: "CartItem",
+  props: {
+    itemId: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
+      title: '',
+      image: '',
+      price: ''
+    }
+
+  },
+  mounted() {
+    this.fetchProduct()
+  },
+  methods: {
+    fetchProduct() {
+      const self = this
+      this.$axios.get(`https://fakestoreapi.com/products/${this.itemId}`)
+        .then(({data}) => {
+          this.title = data.title
+          this.image = data.image
+          this.price = data.price
+          self.$parent.totalCartPrice += self.price
+        })
+
+    },
+    handleItemRemove() {
+      this.$emit('remove-item', this.itemId)
+      this.$parent.totalCartPrice -= this.price
+    }
+  }
 
 }
 </script>

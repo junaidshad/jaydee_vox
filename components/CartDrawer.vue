@@ -1,45 +1,19 @@
 <template>
   <div class="cartDrawer" :class="{open: openCart}">
     <div class="d-flex drawerHeader justify-space-between">
-      <h3 class="font-semi-bold">Your Cart(<span>2</span>)</h3>
-      <img @click="handleCloseCart()" class="close-cart" src="~assets/VoxelStoreAssets/close.svg" alt="close-cart">
+      <h3 class="font-semi-bold">Your Cart(<span>{{cartItems.length}}</span>)</h3>
+      <img class="close-cart" src="~assets/VoxelStoreAssets/close.svg" alt="close-cart" @click="handleCloseCart()">
     </div>
     <div class="drawerContent">
       <div class="listedLineItems">
-        <CartItem />
-        <CartItem />
-        <CartItem />
-<!--        <div class="d-flex flex-wrap singleLineItem">
-          <div class="lineItemImg">
-            <img src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI"
-                 alt="product-image">
-          </div>
-          <div class="d-flex flex-column justify-space-between lineItemDetail">
-            <h4 class="font-semi-bold">Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h4>
-            <div class="d-flex justify-space-between priceWithRemove">
-              <p>$219.90</p>
-              <button class="removeBtn">Remove</button>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex flex-wrap singleLineItem">
-          <div class="lineItemImg">
-            <img src="https://fastly.picsum.photos/id/41/1280/805.jpg?hmac=W9CWeYdlZisqEfhjuODl83T3lCXAqjUZrOe9iMFPYmI"
-                 alt="product-image">
-          </div>
-          <div class="d-flex flex-column justify-space-between lineItemDetail">
-            <h4 class="font-semi-bold">Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h4>
-            <div class="d-flex justify-space-between priceWithRemove">
-              <p>$219.90</p>
-              <button class="removeBtn">Remove</button>
-            </div>
-          </div>
-        </div>-->
+        <template v-for="(itemId) in cartItems">
+          <CartItem ref="cart-item" :key="itemId" :item-id="itemId.toString()" @remove-item="(id) => removeItem(id)"/>
+        </template>
       </div>
       <div class="drawerFooter">
         <div class="cartTotal d-flex font-semi-bold justify-space-between">
           <h2>Total</h2>
-          <h2>$242.20</h2>
+          <h2>${{totalCartPrice}}</h2>
         </div>
         <div class="drawerCheckout">
           <button class="appCheckoutBtn">Continue to Checkout</button>
@@ -56,12 +30,31 @@ export default {
   props: {
     openCart: {
       type: Boolean,
-      default: false
+      default: false,
+    }
+  },
+  data() {
+    return {
+      cartItems: [],
+      totalCartPrice: 0
+    }
+  },
+  watch: {
+    openCart(val) {
+      if(val) {
+        this.cartItems = JSON.parse(localStorage.getItem('cartItems'))
+      }
     }
   },
   methods: {
     handleCloseCart() {
       this.$emit('close-cart')
+    },
+    removeItem(id) {
+      console.log("METHOD::removeItem ~ id -> ", id)
+      this.cartItems = this.cartItems.filter((item) => String(item) !== id)
+      console.log("cart -> ", this.cartItems)
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
     }
   }
 }
@@ -124,6 +117,9 @@ export default {
 
 .appCheckoutBtn:hover {
   background-color: rgb(50, 33, 160);
+}
+.close-cart {
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {

@@ -17,7 +17,7 @@ export default defineComponent({
 
 <style scoped>
 .footer {
-  position: sticky;
+  //position: sticky;
   bottom: 0;
   background-color: #fff;
   height: 64px;
