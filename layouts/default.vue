@@ -2,14 +2,19 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: "default"
+  name: "default",
+  data() {
+    return {
+      openCart: false
+    }
+  }
 })
 </script>
 
 <template>
   <div>
     <HeadNavigation />
-    <Nuxt />
+    <NuxtChild :open-cart="openCart" />
     <Foot />
   </div>
 </template>

@@ -10,111 +10,28 @@
   font-family: 'Instrument';
   src: url("~assets/VoxelStoreAssets/Instrument_Sans/InstrumentSans-VariableFont_wdth,wght.ttf") format('truetype');
 }
+@font-face {
+  font-family: 'InstrumentSemiBold';
+  src: url("~assets/VoxelStoreAssets/Instrument_Sans/static/InstrumentSans-SemiBold.ttf") format('truetype');
+}
 
 html {
-  font-family: 'InstrumentSans', serif;
+  font-family: 'Instrument', sans-serif;
 }
+.d-block{display: block;}
+.d-flex{display: flex;}
+.flex-column{flex-direction: column;}
+.align-center{align-items: center;}
+.justify-center{justify-content: center;}
+.justify-space-between{justify-content: space-between}
+.font-semi-bold{
+  font-family: 'InstrumentSemiBold', sans-serif;}
+.flex-wrap{flex-wrap: wrap;}
 
-.container {
-  padding: 21px 100px;
-}
-
-.footer {
-  display: flex;
-  justify-content: center;
-  height: 64px;
-}
-
-.header-navigation {
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 64px;
-}
-
-.main-page {
-
-}
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 380px;
-  background-color: gainsboro;
-  div {
-    font-weight: 600;
-    font-size: 34px;
-    line-height: 42px;
-    margin-bottom: 10px;
-  }
-  span {
-    font-weight: 500;
-    line-height: 20px;
-    font-size: 16px;
-    opacity: 50%;
-  }
-}
-.category-filters {
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
-  align-items: center;
-}
-
-.category-btn {
-  margin: 27px 0 ;
-}
-
-.product-card {
-  padding: 24px;
-  width: 341px;
-  height: 500px;
-  border: 1px solid rgba(26, 26, 26, 0.1);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  img {
-    width: 293px;
-    height: 280px;
-  }
-}
-
-.product-content {
-
-
-}
-
-.product-title {
-  margin-top: 6px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-}
-.product-price {
-  margin-bottom: 35px;
-  opacity: 50%;
-}
-
-.btn-add-cart {
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
-  justify-content: center;
-  width: 293px;
-  height: 56px;
-  border-radius: 12px;
-  background: #F4F4F4;
-  align-items: center;
-  img {
-    width: 24px;
-    height: 24px;
-
-  }
+.appContainer{
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logo {
@@ -126,4 +43,11 @@ html {
     font-weight: 400;
     opacity: 50%;
   }
+}
+
+@media(max-width: 767px){
+  .smallHide{display: none !important}
+}
+@media(min-width: 768px){
+  .medium-up-hide{display: none !important}
 }
