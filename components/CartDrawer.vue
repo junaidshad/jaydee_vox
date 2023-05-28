@@ -51,9 +51,7 @@ export default {
       this.$emit('close-cart')
     },
     removeItem(id) {
-      console.log("METHOD::removeItem ~ id -> ", id)
       this.cartItems = this.cartItems.filter((item) => String(item) !== id)
-      console.log("cart -> ", this.cartItems)
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
     }
   }

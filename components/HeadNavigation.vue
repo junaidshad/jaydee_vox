@@ -11,9 +11,6 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "HeadNavigation",
-  mounted() {
-    console.log("THIS -> ", this.$parent)
-  },
   methods: {
     handleClickCart() {
       this.$parent.openCart = true

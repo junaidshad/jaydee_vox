@@ -3,11 +3,11 @@
     <div class="appContainer">
       <div class="d-flex align-center smallHide">
         <div v-for="(category, index) in categories" :key="index">
-          <button class="category-btn d-block font-semi-bold" :class="{ active : category.isActive}" @click="handleCategoryClick(category.name)">{{category.name}}</button>
+          <button class="category-btn d-block font-semi-bold" :class="{ active : category.isActive}" @click="handleCategory(category.name)">{{category.name}}</button>
         </div>
       </div>
       <div class="medium-up-hide categorySelect">
-        <select class="d-block font-semi-bold">
+        <select class="d-block font-semi-bold" :value="activeCategory" @change="handleCategory($event.target.value)">
           <option v-for="(category, index) in categories" :key="index">
             {{category.name}}
           </option>
@@ -25,10 +25,14 @@ export default {
     categories: {
       type: Array,
       default: () => []
+    },
+    activeCategory: {
+      type: String,
+      default: ''
     }
   },
   methods: {
-    handleCategoryClick(categoryName) {
+    handleCategory(categoryName) {
       this.categories.forEach((category) => {
         category.isActive = category.name === categoryName
       })

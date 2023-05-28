@@ -6,7 +6,7 @@
     </div>
 
     <div class="main-page">
-      <CategoryFilter :categories="categories"/>
+      <CategoryFilter :active-category="activeCategory" :categories="categories"/>
       <div class="appContainer d-flex flex-wrap grid-view">
         <template v-for="(product) in filteredProducts" >
           <Product :key="product.id" :product="product" @open-cart="openCartDrawer()" />
