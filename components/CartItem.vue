@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   name: "CartItem",
   props: {
@@ -43,6 +44,9 @@ export default {
           this.image = data.image
           this.price = data.price
           self.$parent.totalCartPrice += self.price
+        })
+        .catch(error => {
+          console.log("error -> ", error)
         })
 
     },
@@ -75,7 +79,7 @@ export default {
 .lineItemImg img {
   width: 70px;
   height: 70px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .lineItemDetail {

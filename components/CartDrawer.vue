@@ -9,11 +9,14 @@
         <template v-for="(itemId) in cartItems">
           <CartItem ref="cart-item" :key="itemId" :item-id="itemId.toString()" @remove-item="(id) => removeItem(id)"/>
         </template>
+        <template v-if="!cartItems.length">
+          <div class="d-flex justify-center"><h2>Cart is Empty</h2></div>
+        </template>
       </div>
       <div class="drawerFooter">
         <div class="cartTotal d-flex font-semi-bold justify-space-between">
           <h2>Total</h2>
-          <h2>${{totalCartPrice}}</h2>
+          <h2>${{totalCartPrice.toFixed(2) < 0 ? 0.00 : totalCartPrice.toFixed(2)}}</h2>
         </div>
         <div class="drawerCheckout">
           <button class="appCheckoutBtn">Continue to Checkout</button>
@@ -61,6 +64,7 @@ export default {
 <style scoped>
 .cartDrawer {
   max-width: 460px;
+  width: 460px;
   position: fixed;
   right: 0;
   top: 0;
@@ -122,7 +126,7 @@ export default {
 
 @media (max-width: 767px) {
   .cartDrawer {
-    max-width: 430px;
+    max-width: 100vw;
     padding: 30px 20px;
   }
 }
